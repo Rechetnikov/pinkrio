@@ -1,3 +1,4 @@
+{{-- Layout левой панели--}}
 <div class="leftpanel">
     <h5 class="leftpanel-title"></h5>
     <ul class="nav nav-pills nav-stacked">

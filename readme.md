@@ -8,6 +8,3 @@ php artisan migrate
 
 ## Выполнить посев в консоли
 php artisan db:seed
-
-
-"# pinkrio" 

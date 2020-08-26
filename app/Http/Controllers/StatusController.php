@@ -11,6 +11,11 @@ use Corp\Repositories\ProductsRepository;
 
 class StatusController extends SiteController
 {
+    /**
+     * В конструкторе присваиваем репозитории для контента и шаблоны для рендеринга
+     *
+     * @param  Corp\Repositories\ProductsRepository $product_rep
+     */
     public function __construct(ProductsRepository $product_rep){
         Parent::__construct(new StatusRepository(new Status), new FilialsRepository(new Filial));
         $this->product_rep = $product_rep;
@@ -19,10 +24,10 @@ class StatusController extends SiteController
     }
 
     /**
-     * Display a listing of the resource.
+     * Отображения продуктов в разделе филиал.
      *
      * @param  string  $alias
-     * @return \Illuminate\Http\Response
+     * @return String
      */
     public function index($alias)
     {
@@ -35,26 +40,43 @@ class StatusController extends SiteController
     }
 
     /**
-     * Display the specified resource.
+     * Возвращает данные филиала по id или алиас.
      *
      * @param  string  $par
-     * @return \Illuminate\Http\Response
+     * @return Array
      */
     public function show($par){
         return $this->status_rep->getStatus($par);
     }
     
-
+    /**
+     * Продажа одного продукта
+     *
+     * @param  Illuminate\Http\Request  $request
+     * @return Array
+     */
     public function sales_one(Request $request) {
         $this->status_rep->salesOne($request->id, $request->prise);
         return $request->products;
     }
 
+    /**
+     * Возврат списка продуктов
+     *
+     * @param  Illuminate\Http\Request  $request
+     * @return Array
+     */
     public function retry(Request $request) {   
         $this->status_rep->retryAll($request->products, $request->filial);
         return $request->products;
     }
 
+    /**
+     * Возврат одного продукта
+     *
+     * @param  Illuminate\Http\Request  $request
+     * @return Array
+     */
     public function retry_one(Request $request) {
         $this->status_rep->retryOne($request->id, $request->filial);
         return ['id' => $request->id, 'filial' => $request->filial];

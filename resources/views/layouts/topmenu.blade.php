@@ -1,3 +1,4 @@
+{{-- Layout верхнего меню (не использован) --}}
     <header>
         <div class="headerwrapper">
             <div class="header-left">

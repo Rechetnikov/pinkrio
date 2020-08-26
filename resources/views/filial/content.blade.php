@@ -1,3 +1,5 @@
+{{-- Контент филиалов  --}}
+
 @include('filial.dialogs', ['dialog' => 'yes_no'])
 
 @include('filial.dialogs', ['dialog' => 'sales_prise'])

@@ -5,15 +5,19 @@ use Illuminate\Support\Collection;
 use Corp\Filial;
 use Corp\Product;
 
+// Репозиторий Филиалов
 class FilialsRepository extends Repository{
+
+    // Присвоение модели филиалов в констркторе
     public function __construct(Filial $filial){
         $this->model = $filial;
     }
     
+    // Данные всех филиалов для левого меню. 
     public function selectMenu(){
         $builder[0] = ['id' => 0, 'title' => "Все", "alias" => "all", "count" => 0];
         $filial = $this->model->all();
-        $filial->load(['products' => function ($query) {
+        $filial->load(['products' => function ($query) { // Подгружаем продукты которые не проданы
             $query->where('status_id', '!=', '2');
         }]);
 
@@ -24,6 +28,7 @@ class FilialsRepository extends Repository{
         return collect($builder); 
     }
 
+    // Данные одного филиала по ID или алиасу. 
     public function getFilial($par){
         $filial = false;
         if(is_numeric($par)){
@@ -38,6 +43,7 @@ class FilialsRepository extends Repository{
         return $filial;
     }
 
+    // Продажа списка продуктов
     public function salesAll($products){
         foreach(json_decode($products) as $item){
             $sale = Product::find($item);
@@ -46,10 +52,12 @@ class FilialsRepository extends Repository{
         }
     }
 
+    // Удаление списка продуктов
     public function destroyAll($products){
         Product::destroy(json_decode($products));
     }
     
+    // Перемещение продуктов в филиале
     public function redirectAll($products, $filial){
         foreach(json_decode($products) as $item){
             $sale = Product::find($item);

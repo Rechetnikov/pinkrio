@@ -1,3 +1,4 @@
+{{-- Общий layout 2 скелет--}}
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -23,7 +24,6 @@
     </head>
 
     <body>
-
         @yield('topmenu')
 
         <section>

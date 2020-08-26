@@ -1,5 +1,5 @@
+{{-- Подключен для отображения филиалов инклюдится в статусах --}}
 @if($filials) 
-
     <table class="table table-{{ $status['title']=='Возвращено' ? 'danger' : 'success' }} mb30">
         <thead>
             <tr>

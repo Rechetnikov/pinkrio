@@ -1,3 +1,4 @@
+{{-- Подключен для отображения статусов иклюдится в главном --}}
 @if($status)
     <h3> {{ $status['title'] }} </h3>
     @foreach($status['filials'] as $item)

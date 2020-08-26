@@ -1,3 +1,5 @@
+{{-- Нижние кнопки у страници статусов --}}
+
 <div class="row">
     @if($status != 0)
         <div class="col-md-8">

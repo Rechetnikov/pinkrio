@@ -1,3 +1,5 @@
+{{-- Layout добавления и правка продукта --}}
+
 <div class="contentpanel" id="filial_product">
     @if(isset($errors))
         @foreach($errors->all() as $error)

@@ -13,6 +13,7 @@ use Validator;
 
 class ProductController extends SiteController
 {
+    // Сообщения при валидации
     private $messages = [
         'title.required' => 'Поле "Заголовок" не должно быть пустым',
         'title.max:255' => 'Поле "Заголовок" не должно превышать 255 символов',
@@ -23,6 +24,7 @@ class ProductController extends SiteController
         'filial.exists' => 'Филиал не найден'
     ];
 
+    // Ключи валидации
     private $for_validate = [
         'title' => 'required|max:255',
         'text' => 'required',
@@ -30,16 +32,23 @@ class ProductController extends SiteController
         'filial' => 'required|exists:products,id'
     ];
 
+    /**
+     * В конструкторе присваиваем репозитории для контента и шаблоны для рендеринга
+     *
+     * @param  Corp\Repositories\ProductsRepository $product_rep
+     */
     public function __construct(ProductsRepository $product_rep){
         Parent::__construct(new StatusRepository(new Status), new FilialsRepository(new Filial));
         $this->product_rep = $product_rep;
         $this->template['view'] = 'index';
         $this->template['content'] = 'product.index';
     }
+
+
     /**
-     * Display a listing of the resource.
+     * Рендеринг страници добавления продукта.
      *
-     * @return \Illuminate\Http\Response
+     * @return String
      */
     public function index(){
         $filials_list = $this->getFilialsList($this->filial_rep->selectMenu(), '');
@@ -49,10 +58,10 @@ class ProductController extends SiteController
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Добавления и валидация нового продукта.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return String
      */
     public function store(Request $request){
         $validator = Validator::make($request->all(), $this->for_validate, $this->messages);
@@ -67,10 +76,10 @@ class ProductController extends SiteController
     }
 
     /**
-     * Show the form for editing the specified resource.
+     * Рендеринг страници правка продукта.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return String
      */
     public function edit($id)
     {
@@ -82,11 +91,11 @@ class ProductController extends SiteController
     }
 
     /**
-     * Update the specified resource in storage.
+     * Правка и валидация нового продукта.
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return String
      */
     public function update(Request $request, $id)
     {
@@ -100,20 +109,4 @@ class ProductController extends SiteController
 
         return redirect()->route('salesEdit', ['id' => $id])->with('status', 'Товар успешно обновлен');
     }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
-
-    public function show($id)
-	{
-		dd('show');
-	}
 }

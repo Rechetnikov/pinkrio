@@ -1,3 +1,4 @@
+{{-- Общий layout --}}
 @extends('layouts.site')
 
 @section('topmenu')

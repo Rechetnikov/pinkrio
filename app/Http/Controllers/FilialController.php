@@ -11,6 +11,12 @@ use Corp\Repositories\ProductsRepository;
 
 class FilialController extends SiteController
 {
+    
+    /**
+     * В конструкторе присваиваем репозитории для контента и шаблоны для рендеринга
+     *
+     * @param  Corp\Repositories\ProductsRepository $product_rep
+     */
     public function __construct(ProductsRepository $product_rep){
         Parent::__construct(new StatusRepository(new Status), new FilialsRepository(new Filial));
         $this->product_rep = $product_rep;

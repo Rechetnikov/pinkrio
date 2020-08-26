@@ -1,15 +1,18 @@
 $(document).ready(function()
-{
+{   
+    // Очистка полей в окне продаж
     $("#closer").on("click", function() {
         $('#product_prise').val("");
         $('#product_id').val("");
     });
 
+    // Очистка полей в окне взрата одного товара
     $("#closer_retry").on("click", function() {
         $('#select_filial_retry').val(0);
         $('#product_id').val('');
     });
 
+    // Возврат товара
     $("#retry_product_btn").on("click", function() {
         const $id = $('#product_id').val();
         const $filial = $('#select_filial_retry').val();
@@ -21,10 +24,12 @@ $(document).ready(function()
         $('#product_id').val('');
     });
 
+    // Вызов окна возврата
     $("#filial_product").on("click", ".retry_product_filials", function() {
         $('#product_id').val($(this).attr('id')); 
     });
 
+    // Возврат выбранных товаров
     $("#filial_product").on("click", "#retry_products_all", function() {
         const $checkedProduct = getCheckedProduct();
         const $filial  = $("#select_redirect").val();
@@ -34,6 +39,7 @@ $(document).ready(function()
         }
     });
 
+    // Удаления товара из базы
     $("#delete_product").on("click", function() {
         const $checkedProduct = getCheckedProduct()
         const $token = $("#token").val();
@@ -43,6 +49,7 @@ $(document).ready(function()
         }
     });
     
+    // Продажа товара по выбранной цене
     $("#salest_product_btn").on("click",  function() {
         const $product = $('#product_id').val();
         const $prise = $('#product_prise').val();
@@ -54,6 +61,7 @@ $(document).ready(function()
         $('#product_id').val("");
     });
 
+    // Продажа выбранных товаров
     $("#filial_product").on("click", "#sales_product", function() {
         const $checkedProduct = getCheckedProduct()
         const $token = $("#token").val();
@@ -62,11 +70,13 @@ $(document).ready(function()
         }
     });
     
+    // Вызов окна продажы товаров
     $("#filial_product").on("click", ".sales_product_prise", function() {
         $('#product_prise').val($(this).attr('prise'));
         $('#product_id').val($(this).attr('id'));       
     });
 
+    // Перемещеие товара по филиалам
     $("#filial_product").on("click", "#redirect_filial", function() {
         const $checkedProduct = getCheckedProduct()
         const $filial  = $("#select_redirect").val();
@@ -76,6 +86,8 @@ $(document).ready(function()
         }
     });
 
+
+    // Возврат списка выбранных товаров
     function getCheckedProduct(){
         let $checked = [];
         $('#filial_product .checkboxSuccess:checked').each(function(){
@@ -84,6 +96,7 @@ $(document).ready(function()
         return JSON.stringify($checked)
     }
 
+    // Продажа ajax списка товаров
     function sales_products($products, $token, $method) {
         $.ajax({
             type: "POST",
@@ -99,6 +112,7 @@ $(document).ready(function()
         });
     }
 
+    // Продажа ajax одного товара по выбранной цене
     function sales_product_one($id, $prise, $token, $method) {
         $.ajax({
             type: "POST",
@@ -115,6 +129,7 @@ $(document).ready(function()
         });
     }
 
+    // Перемещения ajax товаров между филиалами
     function redirect_products($products, $filial, $token) {
         $.ajax({
             type: "POST",
@@ -131,6 +146,7 @@ $(document).ready(function()
         });
     }
     
+    // Возврат ajax списка товаров
     function retry_products($products, $filial, $token) {
         $.ajax({
             type: "POST",
@@ -142,11 +158,12 @@ $(document).ready(function()
                 '_token': $token
             },
             success: function(data){
-                // location.reload();
+                location.reload();
             }
         });
     }
 
+    // Возврат ajax одного товара
     function retry_product_one($id, $filial, $token) {
         $.ajax({
             type: "POST",

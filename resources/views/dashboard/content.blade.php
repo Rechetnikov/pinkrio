@@ -1,3 +1,4 @@
+{{-- Контент главного отчета и главной страници  --}}
 <div class="contentpanel">
     @if($dashboard)
         @foreach($dashboard as $item)

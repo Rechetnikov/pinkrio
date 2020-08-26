@@ -1,7 +1,13 @@
+{{-- Контент для статусов  --}}
+
 @include('filial.dialogs', ['dialog' => 'yes_no'])
+
+
 @if($status['id'] != 2)
     @include('filial.dialogs', ['dialog' => 'sales_prise'])
-@else
+@endif
+
+@if($status['id'] == 2 OR $status['id'] == 0)
     @include('status.dialogs', ['dialog' => 'retry_filial', 'filials'=>$filials_list])
 @endif
 
@@ -78,6 +84,7 @@
                 </tbody>
             </table>
         </div>
+
         @include('status.buttons', ['status' => $status['id'], 'filials'=>$filials_list])
     @endif
 </div>

@@ -5,11 +5,16 @@ use Illuminate\Support\Collection;
 use Corp\Product;
 use Corp\Status;
 use Corp\Filial;
+
+// Репозиторий продуктов
 class ProductsRepository extends Repository{
+
+    // Присвоение модели продуктов в констркторе
     public function __construct(Product $product){
         $this->model = $product;
     }
     
+    // Список продуктов для их отображения 
     public function getProducts($type, $alias){
         $where = false;
 		if($alias != 'all'){
@@ -43,6 +48,7 @@ class ProductsRepository extends Repository{
         return $products;
     }
 
+    // Список продуктов для главного отчета
     public function getDashboard(){
         $dashboard = [];
 
@@ -73,6 +79,7 @@ class ProductsRepository extends Repository{
         return collect($dashboard);
     }
 
+    // Создание продукта
     public function add($title, $text, $filial, $prise){
         $product = new Product;
         $product->title = $title;
@@ -83,6 +90,7 @@ class ProductsRepository extends Repository{
         $product->save();
     }
 
+    // Редаектирование продукта
     public function edit($id, $title, $text, $filial, $prise){
         $product = Product::find($id);
         $product->title = $title;
@@ -92,6 +100,7 @@ class ProductsRepository extends Repository{
         $product->save();
     }
 
+    // Взятие модели продукта по ID
     public function getModel($id){
         return $this->model->find($id);
     }

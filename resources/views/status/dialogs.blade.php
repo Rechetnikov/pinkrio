@@ -1,3 +1,4 @@
+{{-- Диалоги для страници статусов --}}
 @if($dialog =='retry_filial')
     <div class="modal fade bs-example-modal-sm2" tabindex="-1" role="dialog" data-backdrop="static" aria-hidden="true" style="display: none;">
         <div class="modal-dialog modal-sm">
